@@ -13,12 +13,12 @@ public class Main {
         int column = input.nextInt();
         output.println("Enter count to win");
         int k = input.nextInt();
+        output.println("Enter tour count");
+        int c = input.nextInt();
+        output.println("Enter player count");
+        int cntPeople = input.nextInt();
 
-        final Game game = new Game(new HumanPlayer(), new HumanPlayer());
-        int result;
-        do {
-            result = game.play(new TicTacToe(row, column, k));
-            output.println("Game result " + result);
-        } while (result != 0);
+        Tourney tourney = new Tourney(cntPeople, row, column, k, c);
+        tourney.play();
     }
 }
