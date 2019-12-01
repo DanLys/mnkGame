@@ -58,7 +58,7 @@ public class Tourney {
         for (int i = 0; i < cnt; i++) {
             for (int j = i + 1; j < cnt; j++) {
                 Game game = new Game(players[i], players[j]);
-                int result = game.play(new TicTacToe(rows, columns, k));
+                int result = game.play(new PlayerBoard(rows, columns, k));
                 if (result == 0) {
                     currentTable[i][j] = 1;
                     currentTable[j][i] = 1;

@@ -2,7 +2,7 @@ package ticTacToe;
 
 import java.util.Arrays;
 
-public class TicTacToe implements Board, Position {
+public class ServerBoard implements Board, Position {
     private final int rows;
     private final int columns;
     private final int k;
@@ -10,7 +10,7 @@ public class TicTacToe implements Board, Position {
     private Cell[][] cells;
     private Cell turn;
 
-    public TicTacToe(int rows, int columns, int k) {
+    public ServerBoard(int rows, int columns, int k) {
         this.rows = rows;
         this.columns = columns;
         this.k = k;
