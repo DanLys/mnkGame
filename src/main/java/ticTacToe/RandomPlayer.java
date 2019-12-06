@@ -16,8 +16,8 @@ public class RandomPlayer implements Player {
     @Override
     public Move move(Position position, Cell cell) {
         while (true) {
-            int row = random.nextInt();
-            int column = random.nextInt();
+            int row = random.nextInt(position.getRows());
+            int column = random.nextInt(position.getColumns());
 
             final Move move = new Move(row, column, cell);
             if (position.isValid(move)) {

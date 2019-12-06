@@ -23,11 +23,22 @@ public class HumanPlayer implements Player {
             output.println(position);
             output.println(cell + "'s move");
             output.println("Enter row and column");
-            final Move move = new Move(input.nextInt(), input.nextInt(), cell);
+            final Move move = new Move(inputNext(), inputNext(), cell);
             if (position.isValid(move)) {
                 return move;
             }
             output.println("Move " + move + " is invalid");
+        }
+    }
+
+    private int inputNext() {
+        while (true) {
+            if (input.hasNextInt()) {
+                return input.nextInt();
+            } else {
+                input.next();
+                output.print("Invalid enter");
+            }
         }
     }
 }

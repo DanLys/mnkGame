@@ -9,16 +9,27 @@ public class Main {
         final PrintStream output = new PrintStream(System.out);
 
         output.println("Enter size square");
-        int row = input.nextInt();
-        int column = input.nextInt();
+        int row = InputNext(input, output);
+        int column = InputNext(input, output);
         output.println("Enter count to win");
-        int k = input.nextInt();
+        int k = InputNext(input, output);
         output.println("Enter tour count");
-        int c = input.nextInt();
+        int c = InputNext(input, output);
         output.println("Enter player count");
-        int cntPeople = input.nextInt();
+        int cntPeople = InputNext(input, output);
 
         Tourney tourney = new Tourney(cntPeople, row, column, k, c);
         tourney.play();
+    }
+
+    private static int InputNext(Scanner input, PrintStream output) {
+        while (true) {
+            if (input.hasNextInt()) {
+                return input.nextInt();
+            } else {
+                input.next();
+                output.print("Invalid enter");
+            }
+        }
     }
 }

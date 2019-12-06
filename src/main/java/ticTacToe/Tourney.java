@@ -45,8 +45,9 @@ public class Tourney {
     }
 
     public void play() {
+        Game game = new Game();
         for (int i = 0; i < c; i++) {
-            playTour();
+            playTour(game);
             printTable(currentTable);
             clear();
         }
@@ -54,22 +55,23 @@ public class Tourney {
         printWinner();
     }
 
-    private void playTour() {
+    private void replaceTables(int i, int j, int val) {
+        currentTable[i][j] = val;
+        totalTable[i][j] += val;
+    }
+
+    private void playTour(Game game) {
         for (int i = 0; i < cnt; i++) {
             for (int j = i + 1; j < cnt; j++) {
-                Game game = new Game(players[i], players[j]);
+                game.setPlayers(players[i], players[j]);
                 int result = game.play(new PlayerBoard(rows, columns, k));
                 if (result == 0) {
-                    currentTable[i][j] = 1;
-                    currentTable[j][i] = 1;
-                    totalTable[i][j] += 1;
-                    totalTable[j][i] += 1;
+                    replaceTables(i, j, 1);
+                    replaceTables(j, i, 1);
                 } else if (result == 1) {
-                    currentTable[i][j] = 3;
-                    totalTable[i][j] += 3;
+                    replaceTables(i, j, 3);
                 } else {
-                    currentTable[j][i] = 3;
-                    totalTable[j][i] += 3;
+                    replaceTables(j, i, 3);
                 }
             }
         }
