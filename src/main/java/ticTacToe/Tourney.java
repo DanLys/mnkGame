@@ -14,6 +14,7 @@ public class Tourney {
     private int[][] currentTable;
     private int[][] totalTable;
     private final PrintStream output;
+    private Pair[] playerPoints;
 
     static class cmp implements Comparator<Pair> {
         @Override
@@ -27,7 +28,7 @@ public class Tourney {
         }
     }
 
-    public Tourney(int cnt, int rows, int columns, int k, int c) {
+    public Tourney(int cnt, int rows, int columns, int k, int c, Player[] players) {
         this.c = c;
         this.cnt = cnt;
         this.rows = rows;
@@ -35,13 +36,11 @@ public class Tourney {
         this.k = k;
         output = new PrintStream(System.out);
 
-        players = new Player[cnt];
-        for (int i = 0; i < cnt; i++) {
-            players[i] = new HumanPlayer();
-        }
+        this.players = players;
 
         currentTable = new int[cnt][cnt];
         totalTable = new int[cnt][cnt];
+        playerPoints = new Pair[cnt];
     }
 
     public void play() {
@@ -84,6 +83,7 @@ public class Tourney {
             }
             output.println();
         }
+        output.println();
     }
 
     private void clear() {
@@ -95,7 +95,15 @@ public class Tourney {
     }
 
     private void printWinner() {
-        Pair[] playerPoints = new Pair[cnt];
+        output.println("Total result");
+        playerPoints = getPlayersScore();
+        for (int i = 0; i < cnt; i++) {
+            output.println(playerPoints[i] + " ");
+        }
+        output.println();
+    }
+
+    public Pair[] getPlayersScore() {
         for (int i = 0; i < cnt; i++) {
             int point = 0;
             for (int j = 0; j < cnt; j++) {
@@ -105,8 +113,14 @@ public class Tourney {
         }
 
         Arrays.sort(playerPoints, new Tourney.cmp());
+        return playerPoints;
+    }
+
+    public int getPlayerScore(int ind) {
+        int result = 0;
         for (int i = 0; i < cnt; i++) {
-            output.println(playerPoints[i] + " ");
+            result += totalTable[ind][i];
         }
+        return result;
     }
 }

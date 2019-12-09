@@ -62,13 +62,13 @@ public class ServerBoard implements Board, Position {
         cells[move.getRow()][move.getColumn()] = move.getCell();
         emptyCells--;
 
+        if (won(move, 0, 1) || won(move, 1, 0) || won(move, 1, 1) || won(move, 1, -1)) {
+            return Result.WIN;
+        }
         for (int i = -1; i <= 0; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i < 0 || j < 0) {
-                    int cnt = checkCnt(i, j, move);
-                    cnt += checkCnt(-i, -j, move);
-                    cnt--;
-                    if (cnt >= k) {
+                    if (checkCnt(i, j, move) + checkCnt(-i, -j, move) - 1 >= k) {
                         return Result.WIN;
                     }
                 }
@@ -78,6 +78,10 @@ public class ServerBoard implements Board, Position {
             return Result.DRAW;
         }
         return Result.UNKNOWN;
+    }
+
+    private boolean won(Move move, int i, int j) {
+        return checkCnt(i, j, move) + checkCnt(-i, -j, move) - 1 >= k;
     }
 
     @Override

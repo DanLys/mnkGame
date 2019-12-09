@@ -32,13 +32,10 @@ public class HumanPlayer implements Player {
     }
 
     private int inputNext() {
-        while (true) {
-            if (input.hasNextInt()) {
-                return input.nextInt();
-            } else {
-                input.next();
-                output.print("Invalid enter");
-            }
+        while (!input.hasNextInt()) {
+            input.next();
+            output.print("Invalid enter");
         }
+        return input.nextInt();
     }
 }
